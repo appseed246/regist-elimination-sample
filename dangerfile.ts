@@ -1,4 +1,4 @@
-import { GitHubIssueComment, GitHubPRDSL, GitHubReview, danger, markdown, message, warn } from "danger";
+import { GitHubPRDSL, danger, markdown, warn } from "danger";
 
 const findRegist = (content: string) => {
   return content.match(/\bregist\b/)
@@ -32,20 +32,4 @@ const warnRegistInPullRequest = (pullRequest: GitHubPRDSL) => {
   }
 }
 
-const warnRegistInComment = (reviews: GitHubReview[]) => {
-  for(const r of reviews) {
-    message(r.user.login)
-    if (r.state != null) {
-      message(r.state)
-    }
-    if (r.commit_id != null) {
-      message(r.commit_id)
-    }
-    if (r.state != null) {
-      message(r.state)
-    }
-  }
-}
-
 warnRegistInPullRequest(danger.github.pr)
-warnRegistInComment(danger.github.reviews)
