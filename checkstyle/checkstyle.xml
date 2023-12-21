@@ -4,7 +4,7 @@
 <module name="Checker">
     <module name="TreeWalker">
         <module name="Regexp">
-            <property name="format" value="\bregist\b"/>
+            <property name="format" value="regist"/>
             <property name="message" value="Avoid using the word 'regist'"/>
         </module>
     </module>
