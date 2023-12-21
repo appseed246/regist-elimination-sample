@@ -1,7 +1,7 @@
 public class Sample {
-    public static void regist() {
-        var sample = "regist is great!";
-        var PRE_REGIST_VALUE = "sample";
+    public static void create() {
+        var sample = "create is great!";
+        var PRE_CREATE_VALUE = "sample";
         System.out.println(sample);
     }
 }
