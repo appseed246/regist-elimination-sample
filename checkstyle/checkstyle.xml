@@ -4,8 +4,8 @@
 <module name="Checker">
     <module name="TreeWalker">
         <module name="Regexp">
-            <property name="format" value="regist"/>
-            <property name="message" value="Avoid using the word 'regist'"/>
+            <property name="format" value="(^|\b|(?&lt;=[a-zA-Z\-_]))((R|r)egist)(\b|(?=[A-Z\-_])|$)|(^|\b|(?&lt;=[\-_]))REGIST(\b|(?=[\-_])|$)"/>
+            <property name="illegalPattern" value="true"/>
         </module>
     </module>
 </module>
