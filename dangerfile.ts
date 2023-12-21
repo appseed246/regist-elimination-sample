@@ -1,22 +1,12 @@
-import { danger, markdown, warn } from "danger";
+import { GitHubPRDSL, danger, markdown, warn } from "danger";
 
 const findRegist = (content: string) => {
-  return content.match(/regist/)
+  return content.match(/\bregist\b/)
 }
 
-const warnRegistInPullRequest = () => {
-  const pullRequest = danger.github.pr
-  const reviews = danger.github.reviews
-  const latest_review = reviews[reviews.length - 1];
-
-  const title = pullRequest.title
-  const body = pullRequest.body
-  const createdBy = pullRequest.user.login
-  const reviewedBy = latest_review.user.login
-
-  if (findRegist(title) || findRegist(body)) {
+const warnRegist = (createdBy: string) => {
     const body = `
-@${createdBy}, @${reviewedBy}
+@${createdBy}
 ## ⚠️⚠️⚠️ちょっとまってください！⚠️⚠️⚠️
 もしかして、『**regist**』という単語をソースコード内で使用しようとしていませんか？？
 『regist』という単語は**存在しません！！**
@@ -29,7 +19,17 @@ const warnRegistInPullRequest = () => {
 
     warn("👮🏻‍♂️👮🏻‍♂️👮🏻‍♂️regist警察出動！！！👮🏻‍♂️👮🏻‍♂️👮🏻‍♂️")
     markdown(body)
+}
+
+const warnRegistInPullRequest = (pullRequest: GitHubPRDSL) => {
+  const title = pullRequest.title
+  const body = pullRequest.body
+  const createdBy = pullRequest.user.login
+
+  if (findRegist(title) || findRegist(body)) {
+    warnRegist(createdBy)
   }
 }
 
-warnRegistInPullRequest()
+
+warnRegistInPullRequest(danger.github.pr)
