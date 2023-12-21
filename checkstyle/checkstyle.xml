@@ -1,4 +1,11 @@
-<module name="Regexp">
-    <property name="format" value="\bregist\b"/>
-    <property name="message" value="Avoid using the word 'regist'"/>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<module name="Checker">
+    <module name="TreeWalker">
+        <module name="Regexp">
+            <property name="format" value="\bregist\b"/>
+            <property name="message" value="Avoid using the word 'regist'"/>
+        </module>
+    </module>
 </module>
