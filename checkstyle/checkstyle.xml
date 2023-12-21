@@ -1,0 +1,4 @@
+<module name="Regexp">
+    <property name="format" value="\bregist\b"/>
+    <property name="message" value="Avoid using the word 'regist'"/>
+</module>

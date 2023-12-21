@@ -1,0 +1,30 @@
+name: Reviewdog
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  reviewdog:
+    runs-on: ubuntu-latest
+    name: Reviewdog
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Download checkstyle
+        run: wget -O - -q https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.12.6/checkstyle-10.12.6-all.jar > ./checkstyle.jar
+      - name: Setup reviewdog
+        run: |
+          mkdir -p $HOME/bin && curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b $HOME/bin
+          echo "$HOME/bin" >> $GITHUB_PATH
+      - name: Run checkstyle
+        run: java -jar checkstyle.jar -c ./checkstyle/checkstyle.xml ./
+      - name: Run reviewdog with checkstyle
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: java -jar checkstyle.jar -c ./checkstyle/checkstyle.xml ./ -f xml | reviewdog -f=checkstyle -reporter=github-pr-review
