@@ -6,7 +6,8 @@
         <module name="Regexp">
             <property name="format" value="(^|\b|(?&lt;=[a-zA-Z\-_]))((R|r)egist)(\b|(?=[A-Z\-_])|$)|(^|\b|(?&lt;=[\-_]))REGIST(\b|(?=[\-_])|$)"/>
             <property name="illegalPattern" value="true"/>
-            <property name="message" value="'regist'という単語が使用されています！！"/>
+            <!-- keyの値は公式ドキュメントのモジュールのリファレンス内の「Violation Messages」で確認 -->
+            <message key="illegal.regexp" value="'regist'という単語が使用されています！！"/>
         </module>
     </module>
 </module>
